@@ -63,7 +63,7 @@ export function ArchitectureSection() {
           data-cursor="Explore"
         >
           <div className="arch__zoom">
-            <CityVideo mode="lazy" poster="dusk" className="arch__media" />
+            <CityVideo mode="lazy" poster="dusk" framing="wide" className="arch__media" />
             <div className="vignette vignette--soft" />
 
             <div className="arch__marks" aria-hidden="true">

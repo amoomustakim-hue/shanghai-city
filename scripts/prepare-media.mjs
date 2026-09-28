@@ -6,7 +6,9 @@
  *
  * Defaults to media-src/shanghai-source.mp4. Writes to public/media/:
  *   shanghai.mp4         desktop 1080p, short GOP so scroll-scrubbing seeks fast
- *   shanghai-mobile.mp4  720p for phones (portrait crops stretch the height most)
+ *   shanghai-mobile.mp4  720p full frame, for phone plates that show the whole panorama
+ *   shanghai-portrait.*  phones, full-bleed: a 3:4 crop around the Pearl tower, upscaled
+ *                        to 1080 × 1440 so every bit lands on pixels that are on screen
  *   *.webm               VP9 fallbacks for browsers without H.264
  *   poster-*.jpg         stills sampled across the day → night transition
  *
@@ -48,12 +50,24 @@ const common = ['-an', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-r', '24', '-b
 const resize = (h) => `scale=-2:${h}:flags=lanczos,unsharp=5:5:0.45:5:5:0`
 const DESKTOP = resize(1080)
 const MOBILE = resize(720)
+// A tall phone shows ~20% of a 2.35:1 frame. Crop first (3:4, centred at 62%
+// across — the Oriental Pearl), then upscale, instead of shipping pixels
+// that are cropped away and letting the browser stretch the rest 3-4×.
+const PORTRAIT = `crop=ih*3/4:ih:iw*0.62-ih*3/8:0,scale=1080:1440:flags=lanczos,unsharp=5:5:0.6:5:5:0`
 
 console.log('→ shanghai.mp4')
 run(['-i', input, ...common, '-preset', 'slow', '-crf', '24', '-tune', 'film', '-g', '12', '-vf', DESKTOP, `${out}/shanghai.mp4`])
 
 console.log('→ shanghai-mobile.mp4')
 run(['-i', input, ...common, '-preset', 'slow', '-crf', '26', '-tune', 'film', '-g', '12', '-vf', MOBILE, `${out}/shanghai-mobile.mp4`])
+
+// If scripts/ai-upscale.py has produced an AI-upscaled portrait crop, use it:
+// it carries real recovered detail, so it only needs resizing.
+const aiPortrait = resolve(root, 'media-src/shanghai-portrait-ai.mp4')
+const portraitIn = existsSync(aiPortrait) ? aiPortrait : input
+const portraitVf = existsSync(aiPortrait) ? 'scale=1080:1440:flags=lanczos' : PORTRAIT
+console.log(`→ shanghai-portrait.mp4${portraitIn === aiPortrait ? ' (AI-upscaled source)' : ''}`)
+run(['-i', portraitIn, ...common, '-preset', 'slow', '-crf', '22', '-tune', 'film', '-g', '12', '-vf', portraitVf, `${out}/shanghai-portrait.mp4`])
 
 // VP9 fallbacks, same keyframe spacing and sizes.
 const vp9 = ['-an', '-c:v', 'libvpx-vp9', '-b:v', '0', '-r', '24', '-g', '12', '-row-mt', '1', '-deadline', 'good', '-cpu-used', '3']
@@ -62,12 +76,16 @@ run(['-i', input, ...vp9, '-crf', '36', '-vf', DESKTOP, `${out}/shanghai.webm`])
 console.log('→ shanghai-mobile.webm')
 run(['-i', input, ...vp9, '-crf', '39', '-vf', MOBILE, `${out}/shanghai-mobile.webm`])
 
+console.log('→ shanghai-portrait.webm')
+run(['-i', portraitIn, ...vp9, '-crf', '34', '-vf', portraitVf, `${out}/shanghai-portrait.webm`])
+
 const stills = { day: 0.02, golden: 0.3, dusk: 0.5, blue: 0.7, night: 0.97 }
 for (const [name, at] of Object.entries(stills)) {
   console.log(`→ poster-${name}.jpg`)
   run(['-ss', String((duration * at).toFixed(2)), '-i', input, '-frames:v', '1', '-q:v', '4', '-vf', DESKTOP, `${out}/poster-${name}.jpg`])
+  run(['-ss', String((duration * at).toFixed(2)), '-i', portraitIn, '-frames:v', '1', '-q:v', '4', '-vf', portraitVf, `${out}/poster-portrait-${name}.jpg`])
 }
 
-for (const f of ['shanghai.mp4', 'shanghai-mobile.mp4', 'shanghai.webm', 'shanghai-mobile.webm']) {
+for (const f of ['shanghai.mp4', 'shanghai-mobile.mp4', 'shanghai-portrait.mp4', 'shanghai.webm', 'shanghai-mobile.webm', 'shanghai-portrait.webm']) {
   console.log(`${f}: ${(statSync(`${out}/${f}`).size / 1e6).toFixed(1)} MB`)
 }

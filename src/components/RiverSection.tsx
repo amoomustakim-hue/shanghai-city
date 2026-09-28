@@ -27,8 +27,8 @@ export function RiverSection() {
     )
     gsap.fromTo(
       '.river__media',
-      { yPercent: -10, scale: 1.25 },
-      { yPercent: 10, scale: 1.08, ease: 'none', scrollTrigger: { trigger: '.river__plate', start: 'top bottom', end: 'bottom top', scrub: true } },
+      { yPercent: desktop ? -10 : -3, scale: desktop ? 1.25 : 1.08 },
+      { yPercent: desktop ? 10 : 3, scale: desktop ? 1.08 : 1.02, ease: 'none', scrollTrigger: { trigger: '.river__plate', start: 'top bottom', end: 'bottom top', scrub: true } },
     )
     // Subtle horizontal current.
     gsap.fromTo(

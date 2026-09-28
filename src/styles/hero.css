@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   height: 100vh;
-  height: 100lvh;
+  height: 100svh;
   background: var(--c-ink);
   overflow: hidden;
 }
@@ -183,8 +183,14 @@
 }
 
 @media (max-width: 767px) {
+  /* The portrait encode is already centred on the Pearl tower. */
   .hero__video {
-    object-position: 64% 50%;
+    object-position: 55% 50%;
+  }
+  /* No cursor parallax on phones, so no overscan either — every % of scale
+     is extra magnification of the footage. */
+  .hero__parallax {
+    inset: 0;
   }
   .hero__title {
     font-size: 28.4vw;
