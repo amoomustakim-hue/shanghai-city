@@ -1,0 +1,21 @@
+:root {
+  --c-ink: #070707;
+  --c-black: #020202;
+  --c-paper: #ebe6dd;
+  --c-dim: rgba(235, 230, 221, 0.5);
+  --c-faint: rgba(235, 230, 221, 0.1);
+  --c-line: rgba(235, 230, 221, 0.16);
+
+  --f-sans: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --f-cjk: 'Noto Serif SC', 'Songti SC', serif;
+
+  --gutter: clamp(16px, 2.4vw, 40px);
+  --nav-h: clamp(56px, 7vh, 72px);
+
+  --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  color-scheme: dark;
+}

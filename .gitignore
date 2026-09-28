@@ -1,0 +1,7 @@
+node_modules
+dist
+*.local
+.DS_Store
+# The raw source footage is large; the web-ready encodes live in public/media.
+media-src/*.mp4
+media-src/*.mov
