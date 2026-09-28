@@ -221,6 +221,10 @@
     height: 68vh;
     margin-top: 6vh;
   }
+  /* Portrait encode: the river runs along the lower-left of the crop. */
+  .river__media {
+    object-position: 30% 80%;
+  }
   .river__data {
     max-width: none;
   }
@@ -495,7 +499,7 @@
 .time {
   position: relative;
   height: 100vh;
-  height: 100lvh;
+  height: 100svh;
   background: var(--c-ink);
 }
 
@@ -651,7 +655,7 @@
 
 @media (max-width: 767px) {
   .time__media {
-    object-position: 64% 50%;
+    object-position: 55% 50%;
   }
   .time__word {
     font-size: 19vw;
@@ -662,8 +666,12 @@
     top: 58%;
     width: 110px;
   }
-  .time__rail-item:not(.is-active) {
-    opacity: 0;
+  /* The phase word is the label on phones; the rail keeps only its line. */
+  .time__rail-item {
+    display: none;
+  }
+  .time__rail {
+    width: 1px;
   }
   .time__hint {
     display: none;
@@ -888,7 +896,7 @@
 .outro {
   position: relative;
   height: 100vh;
-  height: 100lvh;
+  height: 100svh;
   background: var(--c-ink);
   overflow: hidden;
 }
@@ -1003,5 +1011,8 @@
 @media (max-width: 767px) {
   .outro__title {
     font-size: 21vw;
+  }
+  .outro__media {
+    object-position: 50% 50%;
   }
 }

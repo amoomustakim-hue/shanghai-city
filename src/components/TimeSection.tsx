@@ -79,7 +79,7 @@ export function TimeSection() {
         tl.to(note, { opacity: 0, duration: 0.03 }, ph.to - 0.05)
       }
     })
-    if (motion) tl.fromTo('.time__media', { scale: 1.12 }, { scale: 1, duration: 1 }, 0)
+    if (motion) tl.fromTo('.time__media', { scale: desktop ? 1.12 : 1.03 }, { scale: 1, duration: 1 }, 0)
     tl.fromTo('.time__shade', { opacity: 0.35 }, { opacity: 0.1, duration: 1 }, 0)
     tl.set({}, {}, 1)
 

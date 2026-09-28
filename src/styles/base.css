@@ -132,6 +132,11 @@ ul {
   display: inline-block;
 }
 
+/* Split characters are inline-blocks; keep each word on one line. */
+.word {
+  white-space: nowrap;
+}
+
 .br-mobile {
   display: none;
 }

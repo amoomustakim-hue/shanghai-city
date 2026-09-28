@@ -11,7 +11,7 @@ export function OutroSection() {
   const root = useRef<HTMLElement>(null)
   const scrollTo = useScrollTo()
 
-  useScrollScene(root, ({ motion }) => {
+  useScrollScene(root, ({ motion, desktop }) => {
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: { trigger: root.current, start: 'top top', end: '+=180%', pin: true, scrub: true, anticipatePin: 1 },
@@ -24,7 +24,7 @@ export function OutroSection() {
         { clipPath: 'inset(22% 8% 22% 8%)' },
         { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power1.inOut', scrollTrigger: { trigger: root.current, start: 'top bottom', end: 'top top', scrub: true } },
       )
-      tl.fromTo('.outro__media', { scale: 1.35 }, { scale: 1, duration: 1 }, 0)
+      tl.fromTo('.outro__media', { scale: desktop ? 1.35 : 1.1 }, { scale: 1, duration: 1 }, 0)
         .from('.outro__title .char', { yPercent: 105, duration: 0.25, stagger: 0.02, ease: 'power3.out' }, 0.05)
         .from('.outro__small .mask__inner', { yPercent: 110, duration: 0.15, stagger: 0.03, ease: 'power3.out' }, 0.2)
         .from('.outro__coords', { opacity: 0, duration: 0.15 }, 0.3)

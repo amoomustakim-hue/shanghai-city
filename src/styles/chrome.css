@@ -282,6 +282,24 @@ html.has-cursor * {
   }
 }
 
+.nav-scrim {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .nav-scrim {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 49;
+    height: calc(var(--nav-h) + 28px);
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(7, 7, 7, 0.92) 0%, rgba(7, 7, 7, 0.7) 55%, rgba(7, 7, 7, 0));
+  }
+}
+
 /* ———————————————————— Menu */
 
 .menu {

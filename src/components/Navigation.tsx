@@ -50,6 +50,7 @@ export function Navigation({ ready }: { ready: boolean }) {
 
   return (
     <>
+      <div className="nav-scrim" aria-hidden="true" />
       <header className="nav" ref={bar} data-over={FOOTAGE_CHAPTERS.has(chapter.id) ? 'footage' : 'page'}>
         <span className="nav__progress" aria-hidden="true">
           <span ref={progress} />

@@ -27,7 +27,7 @@ export function Hero({ ready, video }: Props) {
     const tl = gsap
       .timeline({ paused: true, defaults: { ease: 'expo.out' } })
       .from('.hero__frame', { opacity: 0, duration: 2.2, ease: 'power2.out' }, 0)
-      .from('.hero__zoom', { scale: 1.14, duration: 3.6, ease: 'power3.out' }, 0)
+      .from('.hero__zoom', { scale: desktop ? 1.14 : 1.05, duration: 3.6, ease: 'power3.out' }, 0)
       .from('.hero__rule', { scaleX: 0, duration: 1.8, ease: 'power3.inOut' }, 0.7)
       .from('.hero__top .mask__inner', { yPercent: 110, duration: 1.3, stagger: 0.07 }, 0.9)
       .from('.hero__title .char', { yPercent: 105, duration: 2, stagger: 0.055 }, 1.3)
@@ -44,7 +44,8 @@ export function Hero({ ready, video }: Props) {
         scrollTrigger: { trigger: root.current, start: 'top top', end: '+=110%', pin: true, scrub: true, anticipatePin: 1 },
         defaults: { ease: 'none' },
       })
-      .to('.hero__push', { scale: 1.2, yPercent: -3, duration: 1 }, 0)
+      // Phones already magnify the footage; keep the push-in gentle there.
+      .to('.hero__push', { scale: desktop ? 1.2 : 1.06, yPercent: desktop ? -3 : -1, duration: 1 }, 0)
       .to('.hero__frame', { clipPath: desktop ? 'inset(18% 6% 24% 6%)' : 'inset(24% 0% 30% 0%)', duration: 1, ease: 'power1.inOut' }, 0)
       .to('.hero__shade', { opacity: 0.5, duration: 1 }, 0)
       .to('.hero__title', { yPercent: -35, opacity: 0, duration: 0.55, ease: 'power2.in' }, 0)

@@ -60,9 +60,21 @@ the browser does the upscaling. Keyframes are 12 frames apart and B-frames are
 off, which keeps scroll-scrubbing smooth. The footage is only resized and
 compressed; the watermark is left intact.
 
-The source clip is 1504 × 640, which caps how sharp it can be. For real HD,
-export an upscaled version (for example with Dreamina's HD export, Topaz or
-Real-ESRGAN), drop it in and rerun the script.
+**Phones** get their own encode. A tall screen shows only about 20% of a
+2.35:1 frame, roughly 300 source pixels across. So full-bleed sections on
+phones use `shanghai-portrait.*`, a 3:4 crop around the Oriental Pearl that
+is upscaled to 1080 × 1440 before encoding, so no bits are spent on cropped-away
+pixels. The city plate, which shows the whole panorama, keeps the full-frame
+encode (`CityVideo`'s `framing` prop decides which is used).
+
+For real extra detail, `scripts/ai-upscale.py` runs Real-ESRGAN on that
+portrait crop (CPU only, about 20 minutes; setup steps are in the script's
+docstring). It writes `media-src/shanghai-portrait-ai.mp4`, which
+`npm run media` picks up automatically.
+
+The source clip is 1504 × 640, which caps how sharp the desktop version can
+be. For real HD there, export an upscaled version (for example with
+Dreamina's HD export or Topaz), drop it in and rerun the script.
 
 Labels on the city plate (`PLATE_LABELS`) and the time phases (`PHASES`,
 `CLOCK_KEYS`) are in `src/config/content.ts`. Plate coordinates are percentages
