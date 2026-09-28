@@ -1,0 +1,211 @@
+.hero {
+  position: relative;
+  height: 100vh;
+  height: 100lvh;
+  background: var(--c-ink);
+  overflow: hidden;
+}
+
+.hero__frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(0% 0% 0% 0%);
+}
+
+.hero__push,
+.hero__zoom {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+/* Oversized so mouse parallax never exposes an edge. */
+.hero__parallax {
+  position: absolute;
+  inset: -2.5%;
+}
+
+.hero__video {
+  object-position: 55% 50%;
+}
+
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+}
+
+.hero__dip {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero__ui {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  padding: calc(var(--nav-h) + 4px) var(--gutter) var(--gutter);
+  pointer-events: none;
+}
+
+.hero__top {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 14px;
+}
+
+.hero__rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(235, 230, 221, 0.28);
+  transform-origin: left center;
+}
+
+.hero__meta--right {
+  text-align: right;
+}
+
+.hero__title-depth {
+  align-self: end;
+}
+
+.hero__title {
+  font-size: 21.7vw;
+  font-weight: 300;
+  line-height: 0.8;
+  letter-spacing: -0.058em;
+  margin: 0 0 clamp(18px, 4vh, 48px) -0.055em;
+  white-space: nowrap;
+  color: var(--c-paper);
+  will-change: transform, opacity;
+}
+
+.hero__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.hero__tagline {
+  font-size: clamp(22px, 2.35vw, 44px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.hero__time {
+  text-align: right;
+}
+
+.hero__clock {
+  font-size: clamp(30px, 3.2vw, 60px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero__colon {
+  animation: blink 2s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.hero__seconds {
+  font-family: var(--f-mono);
+  font-size: 0.24em;
+  letter-spacing: 0.04em;
+  vertical-align: top;
+  margin-left: 0.3em;
+  color: var(--c-dim);
+}
+
+.hero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transform: translateX(-50%);
+}
+
+.hero__cue-line {
+  position: relative;
+  width: 1px;
+  height: 44px;
+  overflow: hidden;
+  background: var(--c-line);
+}
+
+.hero__cue-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--c-paper);
+  transform-origin: top;
+  animation: cue 2.4s var(--ease-quart) infinite;
+}
+
+@keyframes cue {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+.hero__caption {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: calc(24% - 34px);
+  display: flex;
+  justify-content: space-between;
+  color: var(--c-dim);
+  opacity: 0;
+}
+
+@media (max-width: 767px) {
+  .hero__video {
+    object-position: 64% 50%;
+  }
+  .hero__title {
+    font-size: 28.4vw;
+    line-height: 0.8;
+    margin-bottom: 5vh;
+  }
+  .hero__bottom {
+    align-items: flex-end;
+  }
+  .hero__tagline {
+    font-size: 21px;
+  }
+  .hero__clock {
+    font-size: 26px;
+  }
+  .hero__cue {
+    display: none;
+  }
+  .hero__caption {
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: calc(30% - 30px);
+  }
+}

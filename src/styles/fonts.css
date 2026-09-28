@@ -1,0 +1,40 @@
+/*
+ * Noto Serif SC (SIL OFL), only the unicode-range chunks that contain the
+ * glyphs this site sets in Chinese: 上海 黄浦江. Each rule is narrowed to
+ * its single glyph so the face never touches Latin text.
+ */
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-weight: 300;
+  font-display: swap;
+  src: url('../assets/fonts/noto-serif-sc-118-300-normal.woff2') format('woff2');
+  unicode-range: U+4E0A; /* 上 */
+}
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-weight: 300;
+  font-display: swap;
+  src: url('../assets/fonts/noto-serif-sc-117-300-normal.woff2') format('woff2');
+  unicode-range: U+6D77; /* 海 */
+}
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-weight: 300;
+  font-display: swap;
+  src: url('../assets/fonts/noto-serif-sc-115-300-normal.woff2') format('woff2');
+  unicode-range: U+9EC4; /* 黄 */
+}
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-weight: 300;
+  font-display: swap;
+  src: url('../assets/fonts/noto-serif-sc-109-300-normal.woff2') format('woff2');
+  unicode-range: U+6D66; /* 浦 */
+}
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-weight: 300;
+  font-display: swap;
+  src: url('../assets/fonts/noto-serif-sc-116-300-normal.woff2') format('woff2');
+  unicode-range: U+6C5F; /* 江 */
+}
