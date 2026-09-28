@@ -53,11 +53,16 @@ and are generated from the source file by:
 npm run media -- path/to/your-video.mp4    # defaults to media-src/shanghai-source.mp4
 ```
 
-The script writes H.264 and VP9 encodes for desktop and mobile, plus five
-poster stills sampled across the transition. Keyframes are 8 frames apart and
-B-frames are off, which keeps scroll-scrubbing smooth. The footage is only
-scaled and compressed; the watermark is left intact. To use a clean version of
-the footage, drop it in and rerun the script.
+The script writes H.264 and VP9 encodes, 1080p for desktop and 720p for
+phones, plus five poster stills sampled across the transition. Scaling uses
+Lanczos with a light unsharp mask, so skyline edges come out crisper than when
+the browser does the upscaling. Keyframes are 12 frames apart and B-frames are
+off, which keeps scroll-scrubbing smooth. The footage is only resized and
+compressed; the watermark is left intact.
+
+The source clip is 1504 × 640, which caps how sharp it can be. For real HD,
+export an upscaled version (for example with Dreamina's HD export, Topaz or
+Real-ESRGAN), drop it in and rerun the script.
 
 Labels on the city plate (`PLATE_LABELS`) and the time phases (`PHASES`,
 `CLOCK_KEYS`) are in `src/config/content.ts`. Plate coordinates are percentages
